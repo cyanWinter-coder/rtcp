@@ -40,4 +40,17 @@ var (
 	errAppDefinedDataTooLarge   = errors.New("rtcp: application defined data is too large")
 	errAppDefinedInvalidName    = errors.New("rtcp: application defined name must be 4 ASCII chars")
 	errPacketTooLarge           = errors.New("rtcp: packet is too large to fit in RTCP length field")
+
+	// ErrPartialCompoundCorrupt matches every subpacket decode failure reported
+	// by UnmarshalPartial.
+	ErrPartialCompoundCorrupt = errors.New("rtcp: corrupt compound subpacket")
+	// ErrPartialCompoundTruncated matches a final subpacket whose declared
+	// length overruns the datagram.
+	ErrPartialCompoundTruncated = errors.New("rtcp: truncated compound subpacket")
+	// ErrPartialCompoundTooManyPackets matches the MaxPackets limit.
+	ErrPartialCompoundTooManyPackets = errors.New("rtcp: too many compound subpackets")
+	// ErrPartialCompoundTooManyBytes matches the MaxTotalBytes limit.
+	ErrPartialCompoundTooManyBytes = errors.New("rtcp: compound subpackets exceed maximum total bytes")
+	// ErrPartialCompoundPacketTooLarge matches the MaxPacketBytes limit.
+	ErrPartialCompoundPacketTooLarge = errors.New("rtcp: compound subpacket exceeds maximum packet length")
 )

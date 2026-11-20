@@ -30,6 +30,18 @@ Decoding RTCP packets:
 		}
 	}
 
+Salvaging a damaged compound packet:
+
+	report, err := rtcp.UnmarshalPartial(rtcpData, rtcp.PartialCompoundLimits{})
+	// report.Packets holds every intact subpacket and still supports the strict
+	// CompoundPacket.Validate rules. report.Entries locates each subpacket,
+	// including corrupt ones, by index, offset and raw byte range.
+	for _, entry := range report.Entries {
+		if entry.Err != nil {
+			// entry.Index, entry.Offset and entry.Err identify the bad packet.
+		}
+	}
+
 Encoding RTCP packets:
 
 	pkt := &rtcp.PictureLossIndication{
